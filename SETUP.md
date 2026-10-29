@@ -1,6 +1,6 @@
 # F.Ed Human Movement Sciences - Developer Setup Guide 🛠️
 
-> **Note**: This is the detailed developer setup guide. For project overview and quick start, see the [main README](../README.md).
+> **Note**: This is the detailed developer setup guide. For project overview and quick start, see the [main README](README.md).
 
 ## 📋 Table of Contents
 
@@ -65,8 +65,8 @@ For detailed backend development and debugging of the Human Movement Sciences AP
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/NWU-Enterprises-Pty-Ltd/F.Ed-HMS-TnL.git
-   cd F.Ed-HMS-TnL/Code
+   git clone git@github.com:IncredibleZuess/ISE-Hms-Teaching-and-Learning.git
+   cd ISE-Hms-Teaching-and-Learning
    ```
 
 2. **Navigate to Backend Directory**

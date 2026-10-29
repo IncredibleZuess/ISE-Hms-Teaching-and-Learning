@@ -31,70 +31,23 @@ The F.Ed HMS-TnL is a full-stack application that provides:
 ## 📁 Project Structure
 
 ```
-F.Ed-HMS-TnL/
-├── README.md                          # Main project documentation
-└── Code/                             # Main application code
-    ├── README.md                     # Detailed setup instructions
-    ├── pubspec.yaml                  # Flutter dependencies
-    ├── docker-compose.yml            # Docker configuration
-    │
-    ├── lib/                          # Flutter application source
-    │   ├── main.dart                 # App entry point
-    │   ├── auth/                     # Authentication logic
-    │   ├── components/               # Reusable UI components
-    │   ├── pages/                    # App screens/pages
-    │   ├── flutter_flow/             # FlutterFlow generated code
-    │   └── backend/                  # API integration layer
-    │
-    ├── backend/                      # Node.js API server
-    │   ├── index.js                  # Server entry point
-    │   ├── package.json              # Node.js dependencies
-    │   ├── db.js                     # Database connection
-    │   ├── controllers/              # Business logic handlers
-    │   │   ├── authController.js     # Authentication logic
-    │   │   ├── userController.js     # User management
-    │   │   ├── moduleController.js   # Module operations
-    │   │   ├── assignmentController.js
-    │   │   ├── submissionController.js
-    │   │   ├── feedbackController.js
-    │   │   ├── notificationController.js
-    │   │   ├── adminController.js
-    │   │   └── userModuleController.js
-    │   ├── routes/                   # API route definitions
-    │   │   ├── authRouter.js
-    │   │   ├── userRouter.js
-    │   │   ├── moduleRouter.js
-    │   │   ├── assignmentRouter.js
-    │   │   ├── submissionRouter.js
-    │   │   ├── feedbackRouter.js
-    │   │   ├── notificationRouter.js
-    │   │   ├── adminRouter.js
-    │   │   └── userModuleRouter.js
-    │   ├── middleware/               # Custom middleware
-    │   ├── logs/                     # Application logs
-    │   └── uploads/                  # File upload storage
-    │
-    ├── dump/                         # Database schema/migration files
-    │   ├── nwu_hms_users.sql
-    │   ├── nwu_hms_module.sql
-    │   ├── nwu_hms_assignment.sql
-    │   ├── nwu_hms_submission.sql
-    │   ├── nwu_hms_feedback.sql
-    │   ├── nwu_hms_notification.sql
-    │   └── nwu_hms_user_module.sql
-    │
-    ├── assets/                       # Flutter assets
-    │   ├── images/
-    │   ├── fonts/
-    │   ├── audios/
-    │   └── videos/
-    │
-    ├── android/                      # Android platform files
-    ├── ios/                          # iOS platform files
-    ├── web/                          # Web platform files
-    ├── linux/                        # Linux platform files
-    ├── macos/                        # macOS platform files
-    └── windows/                      # Windows platform files
+ISE-Hms-Teaching-and-Learning/
+├── README.md               # Project overview and quick start
+├── SETUP.md                # Detailed development setup
+├── pubspec.yaml            # Flutter dependencies
+├── docker-compose.yml      # Local services
+├── devenv.nix              # Development environment
+├── lib/                    # Flutter application source
+├── backend/                # Node.js API server
+├── dump/                   # Database initialization files
+├── assets/                 # Application assets
+├── test/                   # Flutter tests
+├── android/
+├── ios/
+├── web/
+├── linux/
+├── macos/
+└── windows/
 ```
 
 ## 🔧 Prerequisites
@@ -120,8 +73,8 @@ F.Ed-HMS-TnL/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/NWU-Enterprises-Pty-Ltd/F.Ed-HMS-TnL.git
-cd F.Ed-HMS-TnL/Code
+git clone git@github.com:IncredibleZuess/ISE-Hms-Teaching-and-Learning.git
+cd ISE-Hms-Teaching-and-Learning
 ```
 
 ⚠️ **Important**: Ensure the folder path contains **no special characters or spaces**.
@@ -129,9 +82,6 @@ cd F.Ed-HMS-TnL/Code
 ### 2. Start the Backend (Docker - Recommended)
 
 ```bash
-# Navigate to the Code directory
-cd Code
-
 # Start services with Docker Compose
 docker-compose up -d
 ```
@@ -581,7 +531,7 @@ To add new database changes:
 For support and questions:
 
 - **Issues**: Open GitHub issues for bugs and feature requests
-- **Documentation**: Check `Code/README.md` for detailed setup instructions
+- **Documentation**: Check [SETUP.md](SETUP.md) for detailed setup instructions
 - **Development**: Refer to inline code comments and API documentation
 
 ---
