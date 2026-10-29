@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "741600052588",
+    "project_id": "f-ed-hms-teaching-and-learning",
+    "storage_bucket": "f-ed-hms-teaching-and-learning.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741600052588:android:874caff04619671d8b9f49",
+        "android_client_info": {
+          "package_name": "za.co.hms_nwu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCjjB5dKYm8ZERs1upWMvJYJLJRMFh3U4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

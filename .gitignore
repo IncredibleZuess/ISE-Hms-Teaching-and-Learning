@@ -1,0 +1,109 @@
+# Backend
+/backend/node_modules/
+/backend/.env
+/backend/logs
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+#video files
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flv
+
+# GitHub Actions workflows are not included in the personal repository.
+.github/workflows/
+
+# Local documents and archives
+*.[dD][oO][cC]
+*.[dD][oO][cC][xX]
+*.[pP][dD][fF]
+*.[pP][pP][tT]
+*.[pP][pP][tT][xX]
+*.[xX][lL][sS]
+*.[xX][lL][sS][xX]
+# Keep the application's student upload template.
+!Code/backend/templates/bulk_upload_students_template.xlsx
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+
+# Dependencies, generated output, and local runtime data
+node_modules/
+build/
+coverage/
+.nyc_output/
+logs/
+uploads/
+__pycache__/
+
+# Environment files and signing credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+key.properties
+.npmrc
+
+# Machine-specific editor and development settings
+.vscode/
+.claude/*.local.json
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+.direnv/
+Thumbs.db
+Desktop.ini
+*~

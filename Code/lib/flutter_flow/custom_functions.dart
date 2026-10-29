@@ -1,0 +1,284 @@
+import 'dart:convert';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'lat_lng.dart';
+import 'place.dart';
+import 'uploaded_file.dart';
+import '/backend/schema/structs/index.dart';
+import '/auth/custom_auth/auth_util.dart';
+
+bool isAssignmentOpen(
+  String openDatetimeStr,
+  String dueDatetimeStr,
+) {
+  // Define the date format pattern that matches the input string
+  final DateFormat dateFormat = DateFormat('dd MMMM yyyy \'at\' HH:mm');
+
+  try {
+    // Parse the string dates into DateTime objects
+    DateTime openDatetime = dateFormat.parse(openDatetimeStr);
+    DateTime dueDatetime = dateFormat.parse(dueDatetimeStr);
+
+    // Get the current date and time
+    DateTime now = DateTime.now();
+    // Check if the current time is between openDatetime and dueDatetime
+    if ((now.isAfter(openDatetime) || now.isAtSameMomentAs(openDatetime)) &&
+        now.isBefore(dueDatetime)) {
+      return true; // Assignment is open
+    } else {
+      return false; // Assignment is not open
+    }
+  } catch (e) {
+    print("Error parsing date: $e");
+    return false; // Return false if there's an error in date parsing
+  }
+}
+
+bool isAssignmentClosed(String dueDatetimeStr) {
+  // Check if assignment is closed (past due date)
+  final DateFormat dateFormat = DateFormat('dd MMMM yyyy \'at\' HH:mm');
+
+  try {
+    // Parse the due date string into DateTime object
+    DateTime dueDatetime = dateFormat.parse(dueDatetimeStr);
+
+    // Get the current date and time
+    DateTime now = DateTime.now();
+
+    // Assignment is closed if current time is after due date
+    return now.isAfter(dueDatetime);
+  } catch (e) {
+    print("Error parsing date: $e");
+    return false; // Return false if there's an error in date parsing
+  }
+}
+
+bool isAssignmentOverdue(
+  String dueDatetimeStr,
+  String hasSubmitted,
+) {
+  // Assignment is overdue ONLY if it's closed (past due date) AND not submitted
+  final bool isClosed = isAssignmentClosed(dueDatetimeStr);
+  final bool isSubmitted = hasSubmitted == 'true' || hasSubmitted == 't';
+
+  print('Due Date: $dueDatetimeStr, Has Submitted: $hasSubmitted');
+  print('Is Closed: $isClosed, Is Submitted: $isSubmitted');
+  print('Result (Overdue): ${isClosed && !isSubmitted}');
+
+  return isClosed && !isSubmitted;
+}
+
+bool isTokenExpired(String accessToken) {
+  try {
+    // Split the token into its parts: header, payload, and signature
+    final parts = accessToken.split('.');
+    if (parts.length != 3) {
+      return true; // Invalid token format
+    }
+
+    // Decode the payload from Base64
+    final payload = parts[1];
+    final normalizedPayload = base64Url.normalize(payload);
+    final decodedPayload = utf8.decode(base64Url.decode(normalizedPayload));
+
+    // Convert the payload into a JSON map
+    final payloadMap = jsonDecode(decodedPayload);
+
+    // Check if the 'exp' field exists
+    if (payloadMap.containsKey('exp')) {
+      final expiration = payloadMap['exp'];
+
+      // Get the current time (in seconds)
+      final currentTime = DateTime.now().millisecondsSinceEpoch / 1000;
+
+      // Return true if the current time is greater than the expiration time
+      return currentTime >= expiration;
+    }
+
+    return true; // If there's no 'exp' field, assume the token is expired
+  } catch (e) {
+    // If any error occurs (e.g., token parsing failed), assume it's expired
+    print('Error parsing token: $e');
+    return true;
+  }
+}
+
+String? formatTextForJson(String inputText) {
+  return inputText.trim().replaceAll('\n', '\\n');
+}
+
+String? convertImagePath(String? imagePath) {
+  return imagePath;
+}
+
+String? convertVidPath(String? submissionVidPath) {
+  return submissionVidPath;
+}
+
+DateTime? convertDate(String? formattedDate) {
+  if (formattedDate == null || formattedDate.isEmpty) {
+    return null;
+  }
+
+  try {
+    // Define the date format according to the given string '01 September 2024 at 12:00'
+    final DateFormat dateFormat = DateFormat('dd MMMM yyyy \'at\' HH:mm');
+    return dateFormat.parse(formattedDate);
+  } catch (e) {
+    // If parsing fails, return null or handle error accordingly
+    print('Error parsing date: $e');
+    return null;
+  }
+}
+
+String getVideoName(String vidPath) {
+  final parts = vidPath.split('/');
+  return parts.isNotEmpty ? parts.last : '';
+}
+
+String hasSubmittedText(String submitVal) {
+  if (submitVal == 'f') {
+    return 'View Details';
+  } else if (submitVal == 't') {
+    return 'Submitted';
+  }
+  return ''; // Return an empty string or handle invalid cases if needed
+}
+
+String getStatusText(String hasSubmitted, String dueDateStr) {
+  final bool isSubmitted = hasSubmitted == 't';
+  final bool isClosed = isAssignmentClosed(dueDateStr);
+
+  if (isSubmitted) {
+    // If submitted, always show "Submitted" regardless of due date
+    return 'Submitted';
+  } else if (isClosed) {
+    // If not submitted and closed (past due date), it's overdue
+    return 'Overdue';
+  } else {
+    // If not submitted and not closed (before due date), it's open
+    return 'Open';
+  }
+}
+
+bool shouldShowFeedback(String hasSubmitted, dynamic submissionID) {
+  // Show feedback if assignment is submitted and has a valid submission ID
+  return hasSubmitted == 't' && submissionID != null;
+}
+
+String? getSubmissionIDAsString(dynamic submissionID) {
+  // Safely convert submission ID to string for API calls
+  if (submissionID == null) return null;
+  return submissionID.toString();
+}
+
+bool feedbackExists(dynamic feedbackResponse) {
+  if (feedbackResponse == null) return false;
+
+  try {
+    final feedbackExists = feedbackResponse['feedbackExists'];
+    return feedbackExists == 't' || feedbackExists == true;
+  } catch (e) {
+    print('Error checking feedback existence: $e');
+    return false;
+  }
+}
+
+String getFeedbackMark(dynamic feedbackResponse) {
+  try {
+    return feedbackResponse['mark']?.toString() ?? '0';
+  } catch (e) {
+    print('Error getting feedback mark: $e');
+    return '0';
+  }
+}
+
+String getFeedbackComment(dynamic feedbackResponse) {
+  try {
+    final comment = feedbackResponse['comment']?.toString() ?? '';
+    return comment;
+  } catch (e) {
+    print('Error getting feedback comment: $e');
+    return '';
+  }
+}
+
+bool hasFeedbackComment(dynamic feedbackResponse) {
+  final comment = getFeedbackComment(feedbackResponse);
+  return comment.isNotEmpty;
+}
+
+String? getFeedbackID(dynamic feedbackResponse) {
+  try {
+    final feedbackID = feedbackResponse['feedbackID'];
+    return feedbackID?.toString();
+  } catch (e) {
+    print('Error getting feedback ID: $e');
+    return null;
+  }
+}
+
+bool canSubmitAssignment(String? dueDateStr, String? openDateStr, String? hasSubmitted) {
+  // Can submit/resubmit only if assignment is currently open (between open and due dates)
+  if (dueDateStr == null || openDateStr == null) return false;
+
+  // Check if assignment is currently open (between open and due dates)
+  final bool isOpen = isAssignmentOpen(openDateStr, dueDateStr);
+
+  print(
+      'Can submit check - Open Date: $openDateStr, Due Date: $dueDateStr, Has Submitted: $hasSubmitted');
+  print('Is Open: $isOpen, Can Submit: $isOpen');
+
+  return isOpen; // Can only submit if assignment is currently open
+}
+
+bool canResubmitAssignment(String? dueDateStr, String? hasSubmitted) {
+  // Can resubmit if already submitted but assignment is still open (before due date)
+  if (dueDateStr == null || hasSubmitted == null) return false;
+
+  final bool isSubmitted = hasSubmitted == 't';
+  final bool isClosed = isAssignmentClosed(dueDateStr);
+
+  return isSubmitted && !isClosed; // Can resubmit if submitted and not closed
+}
+
+String getSubmissionButtonText(String? hasSubmitted) {
+  return hasSubmitted == 't' ? 'Update Submission' : 'Submit';
+}
+
+bool isValidVideoTitle(String? title) {
+  return title != null && title.trim().isNotEmpty;
+}
+
+String getSubmissionErrorMessage(bool isUpdate, String? errorMessage) {
+  if (errorMessage != null && errorMessage.isNotEmpty) {
+    return errorMessage;
+  }
+
+  return isUpdate
+      ? 'Failed to update assignment'
+      : 'Failed to upload assignment';
+}
+
+String getSubmissionSuccessMessage(bool isUpdate, String? successMessage) {
+  if (successMessage != null && successMessage.isNotEmpty) {
+    return successMessage;
+  }
+
+  return isUpdate
+      ? 'Assignment updated successfully'
+      : 'Assignment submitted successfully';
+}
+
+bool isValidSubmission(String? videoTitle, dynamic uploadedFile) {
+  // Check if video title is valid and a file is uploaded
+  return isValidVideoTitle(videoTitle) && uploadedFile != null;
+}
+
+String getVideoSelectionButtonText() {
+  return 'Select Video';
+}

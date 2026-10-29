@@ -1,0 +1,83 @@
+services:
+  nodejs:
+    container_name: nodejs-container
+    build: ./backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    expose:
+      - 3000
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      TZ: Africa/Johannesburg
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: nwu_hms
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "hms"
+      MYSQL_PORT: 3306
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_BUCKET: student-videos
+      MINIO_BUCKET_EXAMPLES: example-videos
+      MINIO_BUCKET_VOICE_NOTES: voice-notes
+    networks:
+      - internalnet
+    depends_on:
+      - mysql
+      - minio
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+  mysql:
+    container_name: mysql-container
+    image: mysql:8.0.39
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    volumes:
+      - dev-mysql:/var/lib/mysql
+      - ./dump:/docker-entrypoint-initdb.d
+    ports:
+      - "3307:3306"
+    expose:
+      - 3306
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_DATABASE: nwu_hms
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "hms"
+      MYSQL_ROOT_PASSWORD: "hms"
+    networks:
+      - internalnet
+
+  minio:
+    container_name: minio-container
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9001"
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio-data:/data
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
+
+volumes:
+  dev-mysql:
+  minio-data:

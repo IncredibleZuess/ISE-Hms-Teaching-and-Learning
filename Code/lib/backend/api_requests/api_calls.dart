@@ -1,0 +1,3024 @@
+import '/flutter_flow/flutter_flow_util.dart';
+import 'api_manager.dart';
+import 'interceptors.dart';
+
+export 'api_manager.dart' show ApiCallResponse;
+
+// const baseUrl = 'https://api.hms-nwu.co.za';
+const baseUrl = 'http://localhost:3000';
+
+/// Start User Group Code
+
+class UserGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetUserCall getUserCall = GetUserCall();
+  static UpdateUserCall updateUserCall = UpdateUserCall();
+  static UpdatePasswordCall updatePasswordCall = UpdatePasswordCall();
+  static UploadProfilePictureCall uploadProfilePictureCall =
+      UploadProfilePictureCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetUserCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get User',
+        apiUrl: '$baseUrl/v1/users',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserGroup.interceptors,
+    );
+  }
+
+  int? userID(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.user.userID''',
+      ));
+  String? username(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.username''',
+      ));
+  String? firstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.firstName''',
+      ));
+  String? lastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.lastName''',
+      ));
+  String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.email''',
+      ));
+  String? userType(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.userType''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.createdAt''',
+      ));
+  String? phoneNum(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.phoneNum''',
+      ));
+  String? profilePicture(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.user.profilePicture''',
+      ));
+  int? notificationCount(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.user.notificationCount''',
+      ));
+}
+
+/// End User Group Code
+
+class UpdateUserCall {
+  Future<ApiCallResponse> call({
+    String? firstName = '',
+    String? lastName = '',
+    String? phoneNum = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "firstName": "$firstName",
+  "lastName": "$lastName",
+  "phoneNum": "$phoneNum"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update User',
+        apiUrl: '$baseUrl/v1/users',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdatePasswordCall {
+  Future<ApiCallResponse> call({
+    String? username = '',
+    String? currentPassword = '',
+    String? newPassword = '',
+    String? confirmPassword = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "username": "$username",
+  "currentPassword": "$currentPassword",
+  "newPassword": "$newPassword",
+  "confirmPassword": "$confirmPassword"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update Password',
+        apiUrl: '$baseUrl/v1/users/change-password',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UploadProfilePictureCall {
+  Future<ApiCallResponse> call({
+    FFUploadedFile? profilePicture,
+    String? token = '',
+  }) async {
+    final baseUrl = UserGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Upload Profile Picture',
+        apiUrl: '$baseUrl/v1/upload-profile-picture',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'profilePicture': profilePicture,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End User Group Code
+
+/// Start Assignment Group Code
+
+class AssignmentGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetAssignmentCall getAssignmentCall = GetAssignmentCall();
+  static AddAssignmentCall addAssignmentCall = AddAssignmentCall();
+  static UpdateAssignmentCall updateAssignmentCall = UpdateAssignmentCall();
+  static DeleteAssignmentCall deleteAssignmentCall = DeleteAssignmentCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetAssignmentCall {
+  Future<ApiCallResponse> call({
+    int? moduleID,
+    String? token = '',
+  }) async {
+    final baseUrl = AssignmentGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Assignment',
+        apiUrl: '$baseUrl/v1/assignments/$moduleID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AssignmentGroup.interceptors,
+    );
+  }
+
+  List? assignments(dynamic response) => getJsonField(
+        response,
+        r'''$.assignments''',
+        true,
+      ) as List?;
+}
+
+class AddAssignmentCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? assignName = '',
+    String? assignDesc = '',
+    String? assignOpenDate = '',
+    String? assignDueDate = '',
+    String? assignTotalMarks = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AssignmentGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "assignName": "$assignName",
+  "assignDesc": "$assignDesc",
+  "assignOpenDate": "$assignOpenDate",
+  "assignDueDate": "$assignDueDate",
+  "assignTotalMarks": "$assignTotalMarks"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add Assignment',
+        apiUrl: '$baseUrl/v1/assignments/$moduleID',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AssignmentGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdateAssignmentCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? assignName = '',
+    String? assignDesc = '',
+    String? assignOpenDate = '',
+    String? assignDueDate = '',
+    String? assignTotalMarks = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AssignmentGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "assignName": "$assignName",
+  "assignDesc": "$assignDesc",
+  "assignOpenDate": "$assignOpenDate",
+  "assignDueDate": "$assignDueDate",
+  "assignTotalMarks": "$assignTotalMarks"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update Assignment',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AssignmentGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteAssignmentCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AssignmentGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Assignment',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AssignmentGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Assignment Group Code
+
+/// Start Feedback Group Code
+
+class FeedbackGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetFeedbackForGradebookCall getFeedbackForGradebookCall =
+      GetFeedbackForGradebookCall();
+  static MarkFeedbackViewedCall markFeedbackViewedCall =
+      MarkFeedbackViewedCall();
+
+  static final getLecturerGradebookCall = GetLecturerGradebookCall();
+  static final getAssignmentGradebookForStaffCall =
+      GetAssignmentGradebookForStaffCall();
+
+  static DownloadMarksCall downloadMarksCall = DownloadMarksCall();
+  static AddFeedbackCall addFeedbackCall = AddFeedbackCall();
+  static UpdateFeedbackCall updateFeedbackCall = UpdateFeedbackCall();
+  static GetFeedbackCall getFeedbackCall = GetFeedbackCall();
+  static DeleteFeedbackCall deleteFeedbackCall = DeleteFeedbackCall();
+  static MarkFeedbackAsViewedCall markFeedbackAsViewedCall =
+      MarkFeedbackAsViewedCall();
+  static UploadVoiceNoteFeedbackCall uploadVoiceNoteFeedbackCall =
+      UploadVoiceNoteFeedbackCall();
+  static GetVoiceNoteFeedbackCall getVoiceNoteFeedbackCall =
+      GetVoiceNoteFeedbackCall();
+  static DeleteVoiceNoteFeedbackCall deleteVoiceNoteFeedbackCall =
+      DeleteVoiceNoteFeedbackCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetLecturerGradebookCall {
+  Future<ApiCallResponse> call({
+    required String? token,
+    required int? moduleID,
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Lecturer Gradebook',
+      apiUrl: '$baseUrl/v1/feedback/$moduleID/gradebook-staff',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
+      params: const {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetAssignmentGradebookForStaffCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Assignment Gradebook For Staff',
+        apiUrl: '$baseUrl/v1/feedback/assignment/$assignmentID/gradebook-staff',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? assignName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.assignName''',
+      ));
+
+  List? rows(dynamic response) => getJsonField(
+        response,
+        r'''$.rows''',
+        true,
+      ) as List?;
+}
+
+class GetFeedbackForGradebookCall {
+  Future<ApiCallResponse> call({
+    int? moduleID,
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Feedback for Gradebook',
+        apiUrl: '$baseUrl/v1/feedback/$moduleID/gradebook',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  List? feedback(dynamic response) => getJsonField(
+        response,
+        r'''$.feedback''',
+        true,
+      ) as List?;
+}
+
+class MarkFeedbackViewedCall {
+  Future<ApiCallResponse> call({
+    required String feedbackID,
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(token: token);
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Mark Feedback Viewed',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID/viewed',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+}
+
+class DownloadMarksCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? format = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Download Marks',
+        apiUrl: '$baseUrl/v1/download-marks/$assignmentID/$format',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+}
+
+class AddFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? submissionID = '',
+    String? comment = '',
+    String? mark = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "submissionID": "$submissionID",
+  "comment": "$comment",
+  "mark": "$mark"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add Feedback',
+        apiUrl: '$baseUrl/v1/feedback',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdateFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    String? comment = '',
+    String? mark = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "comment": "$comment",
+  "mark": "$mark"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? submissionID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$submissionID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  int? feedbackID(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.feedbackID''',
+      ));
+  String? comment(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.comment''',
+      ));
+  String? mark(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.mark''',
+      ));
+  String? totalMarks(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.totalMarks''',
+      ));
+  String? feedbackExists(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.feedbackExists''',
+      ));
+  String? voiceNotePath(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.voiceNotePath''',
+      ));
+  String? voiceNoteFileName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.voiceNoteFileName''',
+      ));
+  int? voiceNoteDuration(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.voiceNoteDuration''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class MarkFeedbackAsViewedCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Mark Feedback As Viewed',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID/viewed',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UploadVoiceNoteFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    FFUploadedFile? voiceNote,
+    int? duration,
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Upload Voice Note Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID/voice-note',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'voiceNote': voiceNote,
+          if (duration != null) 'duration': duration,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? voiceNoteFileName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.voiceNoteFileName''',
+      ));
+}
+
+class GetVoiceNoteFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Voice Note Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID/voice-note',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? voiceNotePath(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.voiceNotePath''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteVoiceNoteFeedbackCall {
+  Future<ApiCallResponse> call({
+    String? feedbackID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = FeedbackGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Voice Note Feedback',
+        apiUrl: '$baseUrl/v1/feedback/$feedbackID/voice-note',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      FeedbackGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Feedback Group Code
+
+/// Start Submission Group Code
+
+class SubmissionGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetSubmissionCall getSubmissionCall = GetSubmissionCall();
+  static GetNotMarkedCall getNotMarkedCall = GetNotMarkedCall();
+  static GetMarkedCall getMarkedCall = GetMarkedCall();
+  static AddSubmissionCall addSubmissionCall = AddSubmissionCall();
+  static UpdateSubmissionCall updateSubmissionCall = UpdateSubmissionCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetSubmissionCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = SubmissionGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Submission',
+        apiUrl: '$baseUrl/v1/submissions/$assignmentID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      SubmissionGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? submissionID(dynamic response) {
+    final dynamic value = getJsonField(response, r'''$.submissionID''');
+    return value?.toString();
+  }
+
+  String? submissionVidName(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.submissionVidName''',
+      ));
+  String? submissionVidPath(dynamic response) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.submissionVidPath''',
+      ));
+  String? uploadedAt(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.uploadedAt''',
+      ));
+}
+
+class GetNotMarkedCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = SubmissionGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get NotMarked',
+        apiUrl: '$baseUrl/v1/submissions/not-marked/$assignmentID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      SubmissionGroup.interceptors,
+    );
+  }
+
+  List? notMarkedSubmission(dynamic response) => getJsonField(
+        response,
+        r'''$.submission''',
+        true,
+      ) as List?;
+}
+
+class GetMarkedCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = SubmissionGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Marked',
+        apiUrl: '$baseUrl/v1/submissions/marked/$assignmentID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      SubmissionGroup.interceptors,
+    );
+  }
+
+  List? markedSubmission(dynamic response) => getJsonField(
+        response,
+        r'''$.submission''',
+        true,
+      ) as List?;
+}
+
+class AddSubmissionCall {
+  Future<ApiCallResponse> call({
+    FFUploadedFile? video,
+    String? assignmentID = '',
+    String? vidName = '',
+    String? token = '',
+  }) async {
+    final baseUrl = SubmissionGroup.getBaseUrl(
+      token: token,
+    );
+
+    print('Hello from AddSubmissionCall');
+
+    ApiCallResponse response = await FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add Submission',
+        apiUrl: '$baseUrl/v1/submissions',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'video': video,
+          'assignmentID': assignmentID,
+          'vidName': vidName,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      SubmissionGroup.interceptors,
+    );
+
+    print(response.response);
+
+    return response;
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdateSubmissionCall {
+  Future<ApiCallResponse> call({
+    FFUploadedFile? video,
+    String? assignmentID = '',
+    String? vidName = '',
+    String? token = '',
+  }) async {
+    final baseUrl = SubmissionGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update Submission',
+        apiUrl: '$baseUrl/v1/submissions',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'video': video,
+          'assignmentID': assignmentID,
+          'vidName': vidName,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      SubmissionGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Submission Group Code
+
+/// Start Auth Group Code
+
+class AuthGroup {
+  static String getBaseUrl() => baseUrl;
+  static Map<String, String> headers = {};
+  static LoginCall loginCall = LoginCall();
+  static RefreshTokenCall refreshTokenCall = RefreshTokenCall();
+  static LogoutCall logoutCall = LogoutCall();
+  static ForgotPasswordCall forgotPasswordCall = ForgotPasswordCall();
+  static VerifyResetCodeCall verifyResetCodeCall = VerifyResetCodeCall();
+  static ResetPasswordCall resetPasswordCall = ResetPasswordCall();
+}
+
+class LoginCall {
+  Future<ApiCallResponse> call({
+    String? username = '',
+    String? password = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "username": "$username",
+  "password": "$password"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Login',
+      apiUrl: '$baseUrl/v1/login',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? accessToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.accessToken''',
+      ));
+  String? userType(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.userType''',
+      ));
+  String? refreshToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.refreshToken''',
+      ));
+}
+
+class RefreshTokenCall {
+  Future<ApiCallResponse> call({
+    String? refreshToken = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Refresh Token',
+      apiUrl: '$baseUrl/v1/refresh-token',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': 'Bearer $refreshToken',
+      },
+      params: {},
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? accessToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.accessToken''',
+      ));
+  String? refreshToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.refreshToken''',
+      ));
+  String? userType(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.userType''',
+      ));
+}
+
+class LogoutCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Logout',
+        apiUrl: '$baseUrl/v1/logout',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      interceptors,
+    );
+  }
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class ForgotPasswordCall {
+  Future<ApiCallResponse> call({
+    String? email = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "email": "$email"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Forgot Password',
+      apiUrl: '$baseUrl/v1/forgot-password',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class VerifyResetCodeCall {
+  Future<ApiCallResponse> call({
+    String? email = '',
+    String? resetCode = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "email": "$email",
+  "resetCode": "$resetCode"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Verify Reset Code',
+      apiUrl: '$baseUrl/v1/verify-reset-code',
+      callType: ApiCallType.POST,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class ResetPasswordCall {
+  Future<ApiCallResponse> call({
+    String? email = '',
+    String? newPassword = '',
+  }) async {
+    final baseUrl = AuthGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "email": "$email",
+  "newPassword": "$newPassword"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Reset Password',
+      apiUrl: '$baseUrl/v1/reset-password',
+      callType: ApiCallType.PUT,
+      headers: {},
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Auth Group Code
+
+/// Start Admin Group Code
+
+class AdminGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetUsersCall getUsersCall = GetUsersCall();
+  static GetUserInfoCall getUserInfoCall = GetUserInfoCall();
+  static UpdateUserInfoCall updateUserInfoCall = UpdateUserInfoCall();
+  static CreateUserCall createUserCall = CreateUserCall();
+  static DeleteCall deleteCall = DeleteCall();
+  static BulkUploadPreviewCall bulkUploadPreviewCall = BulkUploadPreviewCall();
+  static BulkUploadConfirmCall bulkUploadConfirmCall = BulkUploadConfirmCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class BulkUploadPreviewCall {
+  Future<ApiCallResponse> call({
+    FFUploadedFile? file,
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Bulk Upload Preview',
+        apiUrl: '$baseUrl/v1/admin/bulk-upload/preview',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'file': file,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? sessionToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.sessionToken''',
+      ));
+  List<dynamic>? validRows(dynamic response) => getJsonField(
+        response,
+        r'''$.validRows''',
+        true,
+      ) as List<dynamic>?;
+  List<dynamic>? errorRows(dynamic response) => getJsonField(
+        response,
+        r'''$.errorRows''',
+        true,
+      ) as List<dynamic>?;
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.error''',
+      ));
+}
+
+class BulkUploadConfirmCall {
+  Future<ApiCallResponse> call({
+    String? sessionToken,
+    bool? overwriteDuplicates = false,
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "sessionToken": "$sessionToken",
+  "overwriteDuplicates": $overwriteDuplicates
+}''';
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Bulk Upload Confirm',
+        apiUrl: '$baseUrl/v1/admin/bulk-upload/confirm',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  int? totalRows(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.summary.totalRows''',
+      ));
+  int? created(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.summary.created''',
+      ));
+  int? skipped(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.summary.skipped''',
+      ));
+  int? failed(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.summary.failed''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.error''',
+      ));
+}
+
+class GetUsersCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Users',
+        apiUrl: '$baseUrl/v1/admin',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  List<int>? userID(dynamic response) => (getJsonField(
+        response,
+        r'''$.users[:].userID''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? user(dynamic response) => (getJsonField(
+        response,
+        r'''$.users[:].user''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class GetUserInfoCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get User Info',
+        apiUrl: '$baseUrl/v1/admin/$userID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? firstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.firstName''',
+      ));
+  String? lastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.lastName''',
+      ));
+  String? phoneNum(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.phoneNum''',
+      ));
+  String? userType(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.userType''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdateUserInfoCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+    String? firstName = '',
+    String? lastName = '',
+    String? phoneNum = '',
+    String? userType = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "firstName": "$firstName",
+  "lastName": "$lastName",
+  "phoneNum": "$phoneNum",
+  "userType": "$userType"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update User Info',
+        apiUrl: '$baseUrl/v1/admin/$userID',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class CreateUserCall {
+  Future<ApiCallResponse> call({
+    String? firstName = '',
+    String? lastName = '',
+    String? studentNum = '',
+    String? phoneNum = '',
+    String? userType = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "firstName": "$firstName",
+  "lastName": "$lastName",
+  "studentNum": "$studentNum",
+  "phoneNum": "$phoneNum",
+  "userType": "$userType"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Create User',
+        apiUrl: '$baseUrl/v1/admin',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete',
+        apiUrl: '$baseUrl/v1/admin/$userID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      AdminGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Admin Group Code
+
+/// Start Module Group Code
+
+class ModuleGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetModuleForDropdownCall getModuleForDropdownCall =
+      GetModuleForDropdownCall();
+  static AddModuleCall addModuleCall = AddModuleCall();
+  static UpdateModuleCall updateModuleCall = UpdateModuleCall();
+  static DeleteModuleCall deleteModuleCall = DeleteModuleCall();
+  static GetModuleCall getModuleCall = GetModuleCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetModuleForDropdownCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = ModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Module for Dropdown',
+        apiUrl: '$baseUrl/v1/module/dropdown',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ModuleGroup.interceptors,
+    );
+  }
+
+  List<int>? moduleID(dynamic response) => (getJsonField(
+        response,
+        r'''$.modules[:].moduleID''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? moduleCode(dynamic response) => (getJsonField(
+        response,
+        r'''$.modules[:].moduleCode''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class AddModuleCall {
+  Future<ApiCallResponse> call({
+    String? moduleName = '',
+    String? moduleCode = '',
+    String? token = '',
+  }) async {
+    final baseUrl = ModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "moduleName": "$moduleName",
+  "moduleCode": "$moduleCode"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add Module',
+        apiUrl: '$baseUrl/v1/module',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UpdateModuleCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? moduleCode = '',
+    String? moduleName = '',
+    String? token = '',
+  }) async {
+    final baseUrl = ModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "moduleName": "$moduleName",
+  "moduleCode": "$moduleCode"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Update Module',
+        apiUrl: '$baseUrl/v1/module/$moduleID',
+        callType: ApiCallType.PUT,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteModuleCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = ModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Module',
+        apiUrl: '$baseUrl/v1/module/$moduleID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetModuleCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = ModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Module',
+        apiUrl: '$baseUrl/v1/module/$moduleID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? moduleName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.moduleName''',
+      ));
+  String? moduleCode(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.moduleCode''',
+      ));
+}
+
+/// End Module Group Code
+
+/// Start Notification Group Code
+
+class NotificationGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static GetNotificationCall getNotificationCall = GetNotificationCall();
+  static AddNotificationCall addNotificationCall = AddNotificationCall();
+  static DeleteNotificationCall deleteNotificationCall =
+      DeleteNotificationCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class GetNotificationCall {
+  Future<ApiCallResponse> call({
+    String? token = '',
+  }) async {
+    final baseUrl = NotificationGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Notification',
+        apiUrl: '$baseUrl/v1/notifications',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      NotificationGroup.interceptors,
+    );
+  }
+
+  List? notifications(dynamic response) => getJsonField(
+        response,
+        r'''$.notifications''',
+        true,
+      ) as List?;
+}
+
+class AddNotificationCall {
+  Future<ApiCallResponse> call({
+    String? assignmentID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = NotificationGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add Notification',
+        apiUrl: '$baseUrl/v1/notifications/$assignmentID',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      NotificationGroup.interceptors,
+    );
+  }
+}
+
+class DeleteNotificationCall {
+  Future<ApiCallResponse> call({
+    String? notificationID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = NotificationGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Notification',
+        apiUrl: '$baseUrl/v1/notifications/$notificationID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      NotificationGroup.interceptors,
+    );
+  }
+}
+
+/// End Notification Group Code
+
+/// Start UserModule Group Code
+
+class UserModuleGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static AddUserModuleCall addUserModuleCall = AddUserModuleCall();
+  static DeleteUserModuleCall deleteUserModuleCall = DeleteUserModuleCall();
+  static GetNotEnrolledCall getNotEnrolledCall = GetNotEnrolledCall();
+  static GetEnrolledCall getEnrolledCall = GetEnrolledCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class AddUserModuleCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+    String? moduleID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "userID": "$userID",
+  "moduleID": "$moduleID"
+}''';
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Add User Module',
+        apiUrl: '$baseUrl/v1/user-module',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteUserModuleCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? userID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete User Module',
+        apiUrl: '$baseUrl/v1/user-module/$moduleID/$userID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetNotEnrolledCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Not Enrolled',
+        apiUrl: '$baseUrl/v1/user-module/not-enrolled/$moduleID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  List<int>? userID(dynamic response) => (getJsonField(
+        response,
+        r'''$.notEnrolledUsers[:].userID''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? user(dynamic response) => (getJsonField(
+        response,
+        r'''$.notEnrolledUsers[:].user''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class GetEnrolledCall {
+  Future<ApiCallResponse> call({
+    String? moduleID = '',
+    String? token = '',
+  }) async {
+    final baseUrl = UserModuleGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Enrolled',
+        apiUrl: '$baseUrl/v1/user-module/enrolled/$moduleID',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: const {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      UserModuleGroup.interceptors,
+    );
+  }
+
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  List<int>? userID(dynamic response) => (getJsonField(
+        response,
+        r'''$.enrolledUsers[:].userID''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
+  List<String>? user(dynamic response) => (getJsonField(
+        response,
+        r'''$.enrolledUsers[:].user''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+/// End UserModule Group Code
+
+/// Start Peer Review Group Code
+
+class PeerReviewGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static ConfigurePeerReviewCall configurePeerReviewCall =
+      ConfigurePeerReviewCall();
+  static GetPeerReviewConfigCall getPeerReviewConfigCall =
+      GetPeerReviewConfigCall();
+  static GetAssignedReviewsCall getAssignedReviewsCall =
+      GetAssignedReviewsCall();
+  static SubmitPeerReviewCall submitPeerReviewCall = SubmitPeerReviewCall();
+  static GetPeerReviewResultsCall getPeerReviewResultsCall =
+      GetPeerReviewResultsCall();
+  static GetAllPeerReviewsCall getAllPeerReviewsCall = GetAllPeerReviewsCall();
+  static OverridePeerReviewCall overridePeerReviewCall = OverridePeerReviewCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class ConfigurePeerReviewCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    bool? enabled = false,
+    int? numPeers = 2,
+    String? deadline,
+    String? rubricName,
+    String? rubricCriteriaJson,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    // rubricCriteriaJson is a JSON-encoded list of {name, description, weight}
+    final ffApiRequestBody = '''
+{
+  "enabled": $enabled,
+  "numPeers": $numPeers,
+  "deadline": "${deadline ?? ''}",
+  "rubric": {
+    "name": "${rubricName ?? ''}",
+    "criteria": ${rubricCriteriaJson ?? '[]'}
+  }
+}''';
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Configure Peer Review',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/peer-review/config',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  bool? enabled(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.config.enabled''',
+      ));
+  int? numPeers(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.config.numPeers''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetPeerReviewConfigCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Peer Review Config',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/peer-review/config',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  bool? enabled(dynamic response) => castToType<bool>(getJsonField(
+        response,
+        r'''$.enabled''',
+      ));
+  int? numPeers(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.config.numPeers''',
+      ));
+  String? deadline(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.config.deadline''',
+      ));
+  String? rubricName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.rubric.name''',
+      ));
+  List<dynamic>? rubricCriteria(dynamic response) => getJsonField(
+        response,
+        r'''$.rubric.criteria''',
+        true,
+      ) as List<dynamic>?;
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetAssignedReviewsCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Assigned Reviews',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/peer-review/my-reviews',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  List<dynamic>? reviews(dynamic response) => getJsonField(
+        response,
+        r'''$.reviews''',
+        true,
+      ) as List<dynamic>?;
+  int? revieweeSubmissionIdAtIndex(dynamic response, int index) =>
+      castToType<int>(getJsonField(
+        response,
+        r'''$.reviews[$index].revieweeSubmissionId''',
+      ));
+  String? videoUrlAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.reviews[$index].videoUrl''',
+      ));
+  bool? completedAtIndex(dynamic response, int index) =>
+      castToType<bool>(getJsonField(
+        response,
+        r'''$.reviews[$index].completed''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class SubmitPeerReviewCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    int? revieweeSubmissionId,
+    String? rubricScoresJson,
+    String? comments,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    // rubricScoresJson is a JSON-encoded list of {criteria_name, score}
+    final ffApiRequestBody = '''
+{
+  "revieweeSubmissionId": $revieweeSubmissionId,
+  "rubricScores": ${rubricScoresJson ?? '[]'},
+  "comments": "${comments ?? ''}"
+}''';
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Submit Peer Review',
+        apiUrl: '$baseUrl/v1/peer-reviews/$assignmentID',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetPeerReviewResultsCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Peer Review Results',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/peer-review/results',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.reviewCount''',
+      ));
+  double? aggregateScore(dynamic response) => castToType<double>(getJsonField(
+        response,
+        r'''$.aggregateScore''',
+      ));
+  List<dynamic>? reviews(dynamic response) => getJsonField(
+        response,
+        r'''$.reviews''',
+        true,
+      ) as List<dynamic>?;
+  String? commentsAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.reviews[$index].comments''',
+      ));
+  double? totalScoreAtIndex(dynamic response, int index) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$.reviews[$index].totalScore''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetAllPeerReviewsCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get All Peer Reviews',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/peer-review/all',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  List<dynamic>? reviews(dynamic response) => getJsonField(
+        response,
+        r'''$.reviews''',
+        true,
+      ) as List<dynamic>?;
+  String? reviewerAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.reviews[$index].reviewer''',
+      ));
+  String? revieweeAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.reviews[$index].reviewee''',
+      ));
+  double? totalScoreAtIndex(dynamic response, int index) =>
+      castToType<double>(getJsonField(
+        response,
+        r'''$.reviews[$index].totalScore''',
+      ));
+  String? commentsAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.reviews[$index].comments''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class OverridePeerReviewCall {
+  Future<ApiCallResponse> call({
+    int? reviewID,
+    double? overrideScore,
+    String? overrideComment,
+    String? token = '',
+  }) async {
+    final baseUrl = PeerReviewGroup.getBaseUrl(
+      token: token,
+    );
+
+    final ffApiRequestBody = '''
+{
+  "overrideScore": $overrideScore,
+  "overrideComment": "${overrideComment ?? ''}"
+}''';
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Override Peer Review',
+        apiUrl: '$baseUrl/v1/peer-reviews/$reviewID/override',
+        callType: ApiCallType.PATCH,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        body: ffApiRequestBody,
+        bodyType: BodyType.JSON,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      PeerReviewGroup.interceptors,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Peer Review Group Code
+
+/// Start Example Video Group Code
+
+class ExampleVideoGroup {
+  static String getBaseUrl({
+    String? token = '',
+  }) =>
+      baseUrl;
+
+  static ListExampleVideosCall listExampleVideosCall = ListExampleVideosCall();
+  static UploadExampleVideoCall uploadExampleVideoCall =
+      UploadExampleVideoCall();
+  static GetExampleVideoUrlCall getExampleVideoUrlCall =
+      GetExampleVideoUrlCall();
+  static DeleteExampleVideoCall deleteExampleVideoCall =
+      DeleteExampleVideoCall();
+
+  static final interceptors = [
+    RefreshToken(),
+  ];
+}
+
+class ListExampleVideosCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    String? token = '',
+  }) async {
+    final baseUrl = ExampleVideoGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'List Example Videos',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/example-videos',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ExampleVideoGroup.interceptors,
+    );
+  }
+
+  List<dynamic>? videos(dynamic response) => getJsonField(
+        response,
+        r'''$.videos''',
+        true,
+      ) as List<dynamic>?;
+  int? idAtIndex(dynamic response, int index) => castToType<int>(getJsonField(
+        response,
+        r'''$.videos[$index].id''',
+      ));
+  String? titleAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.videos[$index].title''',
+      ));
+  String? descriptionAtIndex(dynamic response, int index) =>
+      castToType<String>(getJsonField(
+        response,
+        r'''$.videos[$index].description''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class UploadExampleVideoCall {
+  Future<ApiCallResponse> call({
+    int? assignmentID,
+    FFUploadedFile? video,
+    String? title,
+    String? description,
+    String? token = '',
+  }) async {
+    final baseUrl = ExampleVideoGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Upload Example Video',
+        apiUrl: '$baseUrl/v1/assignments/$assignmentID/example-videos',
+        callType: ApiCallType.POST,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {
+          'title': title,
+          'description': description,
+          'video': video,
+        },
+        bodyType: BodyType.MULTIPART,
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ExampleVideoGroup.interceptors,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class GetExampleVideoUrlCall {
+  Future<ApiCallResponse> call({
+    int? videoID,
+    String? token = '',
+  }) async {
+    final baseUrl = ExampleVideoGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Get Example Video URL',
+        apiUrl: '$baseUrl/v1/example-videos/$videoID/url',
+        callType: ApiCallType.GET,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ExampleVideoGroup.interceptors,
+    );
+  }
+
+  String? url(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.url''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+class DeleteExampleVideoCall {
+  Future<ApiCallResponse> call({
+    int? videoID,
+    String? token = '',
+  }) async {
+    final baseUrl = ExampleVideoGroup.getBaseUrl(
+      token: token,
+    );
+
+    return FFApiInterceptor.makeApiCall(
+      ApiCallOptions(
+        callName: 'Delete Example Video',
+        apiUrl: '$baseUrl/v1/example-videos/$videoID',
+        callType: ApiCallType.DELETE,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        params: {},
+        returnBody: true,
+        encodeBodyUtf8: false,
+        decodeUtf8: false,
+        cache: false,
+        isStreamingApi: false,
+        alwaysAllowBody: false,
+      ),
+      ExampleVideoGroup.interceptors,
+    );
+  }
+
+  String? message(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+  String? errorMessage(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.message''',
+      ));
+}
+
+/// End Example Video Group Code
+
+class ApiPagingParams {
+  int nextPageNumber = 0;
+  int numItems = 0;
+  dynamic lastResponse;
+
+  ApiPagingParams({
+    required this.nextPageNumber,
+    required this.numItems,
+    required this.lastResponse,
+  });
+
+  @override
+  String toString() =>
+      'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
+}

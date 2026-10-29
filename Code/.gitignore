@@ -1,0 +1,100 @@
+# Dependencies and backend runtime data
+node_modules/
+logs/
+uploads/
+coverage/
+.nyc_output/
+
+# Environment files and signing credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+key.properties
+.npmrc
+
+# GitHub Actions workflows are not included in the personal repository.
+.github/workflows/
+
+# Local documents and archives
+*.[dD][oO][cC]
+*.[dD][oO][cC][xX]
+*.[pP][dD][fF]
+*.[pP][pP][tT]
+*.[pP][pP][tT][xX]
+*.[xX][lL][sS]
+*.[xX][lL][sS][xX]
+# Keep the application's student upload template.
+!backend/templates/bulk_upload_students_template.xlsx
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+__pycache__/
+*.swp
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Machine-specific editor and agent settings
+.vscode/
+.claude/*.local.json
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Devenv
+.devenv*
+devenv.local.nix
+devenv.local.yaml
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
